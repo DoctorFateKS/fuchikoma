@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Prepare a fresh clone for development: bin/setup
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+if ! command -v ruby >/dev/null 2>&1; then
+  echo "Ruby is not installed. Saitama needs Ruby 3.4 or later (see .ruby-version)." >&2
+  exit 1
+fi
+
+if ! ruby -e 'exit(RUBY_VERSION >= "3.4")'; then
+  echo "Ruby $(ruby -e 'print RUBY_VERSION') found, but Saitama needs 3.4 or later." >&2
+  exit 1
+fi
+
+if ! command -v bundle >/dev/null 2>&1; then
+  gem install bundler
+fi
+
+bundle install
+
+echo
+echo "Setup complete. Run 'bundle exec rake' to run tests, RuboCop and Steep."
