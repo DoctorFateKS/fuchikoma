@@ -1,0 +1,23 @@
+# Code owners are requested for review automatically.
+# The last matching pattern takes precedence.
+#
+# The project starts under a personal account, where teams do not exist, so
+# individual handles are used.
+
+# Default owners for everything
+*                                   @DoctorFateKS
+
+# Governance, legal and security documents: steering group
+/GOVERNANCE.md                      @DoctorFateKS
+/CODE_OF_CONDUCT.md                 @DoctorFateKS
+/SECURITY.md                        @DoctorFateKS
+/LICENSE                            @DoctorFateKS
+/.github/CODEOWNERS                 @DoctorFateKS
+/rfcs/                              @DoctorFateKS
+
+# Supply chain and release process: steering group
+/.github/workflows/                 @DoctorFateKS
+/.github/scripts/                   @DoctorFateKS
+/saitama.gemspec                    @DoctorFateKS
+/Gemfile                            @DoctorFateKS
+/DEPENDENCIES.md                    @DoctorFateKS

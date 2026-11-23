@@ -1,0 +1,80 @@
+name: Bug report
+description: Something does not work as documented.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug.
+
+        **Security problems must not be reported here.** Follow
+        [SECURITY.md](https://github.com/REPLACE-WITH-ORG/saitama/blob/main/SECURITY.md)
+        and report them privately.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched the existing issues and found no duplicate.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true
+        - label: I have read the Code of Conduct and agree to follow it.
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected to happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: A minimal, self-contained example is the fastest way to get a fix.
+      placeholder: |
+        1. Run `...`
+        2. Request `...`
+        3. See the error
+    validations:
+      required: true
+  - type: input
+    id: saitama-version
+    attributes:
+      label: Saitama version
+      description: The released version, or the commit SHA if you use the main branch.
+      placeholder: "0.0.1"
+    validations:
+      required: true
+  - type: input
+    id: ruby-version
+    attributes:
+      label: Ruby version
+      description: Output of `ruby -v`.
+      placeholder: "ruby 4.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows (WSL)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and error output
+      description: Paste the relevant output. Remove secrets and personal data first.
+      render: shell
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else that may help, such as the database, the deployment mode or related issues.
