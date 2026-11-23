@@ -11,7 +11,7 @@ body:
         Saitama keeps a small core and follows a written roadmap. A change that
         adds a public concept, breaks the API or adds a runtime dependency needs
         a public RFC: see the
-        [RFC process](https://github.com/REPLACE-WITH-ORG/saitama/blob/main/GOVERNANCE.md#the-rfc-process).
+        [RFC process](https://github.com/DoctorFateKS/saitama/blob/main/GOVERNANCE.md#the-rfc-process).
   - type: checkboxes
     id: preflight
     attributes:
