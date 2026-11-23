@@ -1,0 +1,3 @@
+module Saitama
+  VERSION: String
+end
