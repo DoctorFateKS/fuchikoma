@@ -1,7 +1,7 @@
-# Saitama Governance
+# Fuchikoma Governance
 
 The 2025 RubyGems dispute showed what happens when control, money and access
-rules are left implicit. Saitama writes them down before the first release.
+rules are left implicit. Fuchikoma writes them down before the first release.
 This document says who decides, how decisions are made, how people gain and
 lose responsibility, and where the project's assets live.
 

@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative "lib/saitama/version"
+require_relative "lib/fuchikoma/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "saitama"
-  spec.version = Saitama::VERSION
+  spec.name = "fuchikoma"
+  spec.version = Fuchikoma::VERSION
   spec.authors = ["Kevin Saison"]
   spec.email = ["saisonkevin@protonmail.com"]
 
   spec.summary = "Fiber-native, typed, one-process Ruby web framework."
-  spec.description = "Saitama is a Ruby framework for one-process web applications: " \
+  spec.description = "Fuchikoma is a Ruby framework for one-process web applications: " \
                      "every request, job and socket runs in a fiber, contracts are " \
                      "declared once as schemas, data access is scoped by default, " \
                      "and AI agents are a framework concept."
-  spec.homepage = "https://github.com/DoctorFateKS/saitama"
+  spec.homepage = "https://github.com/DoctorFateKS/fuchikoma"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.4"
 

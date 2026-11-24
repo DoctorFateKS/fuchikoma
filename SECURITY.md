@@ -1,6 +1,6 @@
 # Security Policy
 
-Saitama is a web framework: security reports are taken seriously and handled
+Fuchikoma is a web framework: security reports are taken seriously and handled
 privately until a fix is available.
 
 ## Reporting a vulnerability
@@ -44,7 +44,7 @@ explain why and agree a disclosure date with you.
 
 ## Supported versions
 
-Saitama is pre-1.0 and under active development.
+Fuchikoma is pre-1.0 and under active development.
 
 | Version | Supported |
 |---------|-----------|
@@ -60,7 +60,7 @@ In scope: the code in this repository, the published gems, and the release
 process (workflows, signing, SBOM).
 
 Out of scope: vulnerabilities in third-party dependencies that are not
-exploitable through Saitama (please report those upstream), social engineering,
+exploitable through Fuchikoma (please report those upstream), social engineering,
 and denial of service through unrealistic resource exhaustion.
 
 ## Safe harbour

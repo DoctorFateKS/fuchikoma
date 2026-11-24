@@ -18,6 +18,6 @@
 # Supply chain and release process: steering group
 /.github/workflows/                 @DoctorFateKS
 /.github/scripts/                   @DoctorFateKS
-/saitama.gemspec                    @DoctorFateKS
+/fuchikoma.gemspec                    @DoctorFateKS
 /Gemfile                            @DoctorFateKS
 /DEPENDENCIES.md                    @DoctorFateKS

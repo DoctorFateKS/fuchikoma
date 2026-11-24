@@ -2,8 +2,8 @@
 
 require "test_helper"
 
-class SaitamaTest < Minitest::Test
+class FuchikomaTest < Minitest::Test
   def test_version_is_a_semantic_version
-    assert_match(/\A\d+\.\d+\.\d+\z/, Saitama::VERSION)
+    assert_match(/\A\d+\.\d+\.\d+\z/, Fuchikoma::VERSION)
   end
 end

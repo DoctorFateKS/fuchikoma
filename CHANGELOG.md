@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Saitama are recorded in this file.
+All notable changes to Fuchikoma are recorded in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project follows [Semantic Versioning](https://semver.org/). Before
@@ -16,8 +16,8 @@ First release: the repository skeleton. There is no framework code yet.
 
 - MIT licence, Contributor Covenant 2.1 code of conduct and a security policy
   with a private disclosure address.
-- An empty gem (`saitama.gemspec`, `Gemfile`, `Rakefile`, `.ruby-version` and
-  `bin/setup`) that exposes `Saitama::VERSION`.
+- An empty gem (`fuchikoma.gemspec`, `Gemfile`, `Rakefile`, `.ruby-version` and
+  `bin/setup`) that exposes `Fuchikoma::VERSION`.
 - A GitHub Actions workflow running RuboCop, Steep and the tests on Ruby 3.4
   and 4.0.
 - `CONTRIBUTING.md` with the Developer Certificate of Origin sign-off, and a
@@ -27,5 +27,5 @@ First release: the repository skeleton. There is no framework code yet.
 - Issue templates, a pull request template and `CODEOWNERS`.
 - A README with the vision, a status banner and the non-goals.
 
-[Unreleased]: https://github.com/DoctorFateKS/saitama/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/DoctorFateKS/saitama/releases/tag/v0.0.1
+[Unreleased]: https://github.com/DoctorFateKS/fuchikoma/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/DoctorFateKS/fuchikoma/releases/tag/v0.0.1

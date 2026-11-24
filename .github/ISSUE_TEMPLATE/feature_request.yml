@@ -8,10 +8,10 @@ body:
       value: |
         Thank you for the suggestion.
 
-        Saitama keeps a small core and follows a written roadmap. A change that
+        Fuchikoma keeps a small core and follows a written roadmap. A change that
         adds a public concept, breaks the API or adds a runtime dependency needs
         a public RFC: see the
-        [RFC process](https://github.com/DoctorFateKS/saitama/blob/main/GOVERNANCE.md#the-rfc-process).
+        [RFC process](https://github.com/DoctorFateKS/fuchikoma/blob/main/GOVERNANCE.md#the-rfc-process).
   - type: checkboxes
     id: preflight
     attributes:
@@ -32,7 +32,7 @@ body:
     id: proposal
     attributes:
       label: Proposed solution
-      description: What would you like Saitama to do? Include a short code sketch if it helps.
+      description: What would you like Fuchikoma to do? Include a short code sketch if it helps.
     validations:
       required: true
   - type: textarea

@@ -1,6 +1,6 @@
-# Contributing to Saitama
+# Contributing to Fuchikoma
 
-Thank you for your interest in Saitama. This project is built in the open, and
+Thank you for your interest in Fuchikoma. This project is built in the open, and
 every contribution is welcome: code, tests, documentation, benchmarks, bug
 reports and reviews.
 
@@ -23,8 +23,8 @@ To report a security problem, **do not open a public issue**: follow
 You need Ruby 3.4 or later.
 
 ```sh
-git clone https://github.com/DoctorFateKS/saitama.git
-cd saitama
+git clone https://github.com/DoctorFateKS/fuchikoma.git
+cd fuchikoma
 bin/setup
 ```
 
@@ -85,7 +85,7 @@ your idea needs an RFC, open an issue and ask.
 
 ## Developer Certificate of Origin
 
-Saitama uses the Developer Certificate of Origin (DCO) instead of a contributor
+Fuchikoma uses the Developer Certificate of Origin (DCO) instead of a contributor
 licence agreement. You keep the copyright on your contribution, and no single
 company can relicense the project.
 

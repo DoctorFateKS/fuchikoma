@@ -1,6 +1,6 @@
-# Saitama
+# Fuchikoma
 
-[![CI](https://github.com/DoctorFateKS/saitama/actions/workflows/ci.yml/badge.svg)](https://github.com/DoctorFateKS/saitama/actions/workflows/ci.yml)
+[![CI](https://github.com/DoctorFateKS/fuchikoma/actions/workflows/ci.yml/badge.svg)](https://github.com/DoctorFateKS/fuchikoma/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Ruby 3.4+](https://img.shields.io/badge/ruby-3.4%2B-red.svg)
 
@@ -11,21 +11,21 @@ boundaries, secure-by-default data access and first-class agent support.**
 > **Status: pre-alpha, version 0.0.1. There is no framework code yet.**
 > The repository currently holds an empty gem, the project's governance and
 > its continuous integration. Nothing here is usable for an application, and
-> nothing is stable. The name "Saitama" is a working name and may change
+> nothing is stable. The name "Fuchikoma" is a working name and may change
 > before 1.0. Follow the progress, join the discussion, and see
 > [Contributing](#contributing) if you want to help build it.
 
-## Why Saitama
+## Why Fuchikoma
 
 Ruby has one dominant full-stack framework, one serious architectural
 alternative and several small or API-focused tools. None combines
 fiber-native concurrency, an integrated front-end story and a typed,
 agent-ready surface.
 
-Saitama keeps what Rails taught the world (conventions, generators, one-person
+Fuchikoma keeps what Rails taught the world (conventions, generators, one-person
 productivity) and changes four defaults:
 
-| Default | Rails-style today | Saitama |
+| Default | Rails-style today | Fuchikoma |
 |---------|-------------------|---------|
 | **Concurrency** | Threads and processes | Every request, job and socket runs in its own fiber, on the Ruby fiber scheduler |
 | **Contracts** | Implicit, checked at runtime | Request, response and view props are declared once as schemas; validation, OpenAPI 3.1 and RBS signatures come from them |
@@ -60,11 +60,11 @@ productivity) and changes four defaults:
 
 ## Non-goals
 
-Saitama deliberately does **not** try to be:
+Fuchikoma deliberately does **not** try to be:
 
 - **A Rails clone or drop-in replacement.** A compatibility layer is a plugin,
   not the core.
-- **A JavaScript front-end framework.** Saitama renders on the server and
+- **A JavaScript front-end framework.** Fuchikoma renders on the server and
   supports islands for the parts that need client-side code.
 - **A new ORM.** Version 1 integrates Sequel and ActiveRecord through one
   adapter interface.
@@ -101,8 +101,8 @@ benchmarks, bug reports and reviews.
 To set up a development environment you need Ruby 3.4 or later:
 
 ```sh
-git clone https://github.com/DoctorFateKS/saitama.git
-cd saitama
+git clone https://github.com/DoctorFateKS/fuchikoma.git
+cd fuchikoma
 bin/setup
 bundle exec rake   # tests, RuboCop and Steep
 ```
@@ -114,6 +114,6 @@ Please do not report vulnerabilities in public issues. Follow
 
 ## Licence
 
-Saitama is released under the [MIT licence](LICENSE). There is no contributor
+Fuchikoma is released under the [MIT licence](LICENSE). There is no contributor
 licence agreement: contributors keep their copyright and certify their work
 with the Developer Certificate of Origin.
