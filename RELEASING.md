@@ -60,8 +60,16 @@ Do this once, before the first release.
    Trusted publishers) with the gem name `fuchikoma`, the repository owner and
    name (`KevinSaison/fuchikoma`), the workflow file `release.yml` and the
    environment `release`. After the first push, RubyGems turns it into a
-   regular trusted publisher.
-3. Check that the release managers are the only owners of the gem.
+   regular trusted publisher. A pending trusted publisher expires after a
+   short delay, so create it just before you push the first tag.
+3. Note the numeric **account ID** shown on the Pending Trusted Publishers
+   page, and save it as the repository variable `RUBYGEMS_OWNER` (Settings →
+   Secrets and variables → Actions → Variables). RubyGems.org lets trusted
+   publishing create a new gem only if the workflow names the account that
+   will own it, and the release workflow does so while this variable is set.
+   **Delete the variable after the first release**: from then on the gem
+   exists and the variable is no longer needed.
+4. Check that the release managers are the only owners of the gem.
 
 ## Releasing
 
@@ -162,7 +170,7 @@ version is final, and a fix is a new version.
 |---------|---------------|------------|
 | `verify` fails on the tag check | The tag is unsigned, lightweight, mismatched with the version, or not on `main` | Nothing was published. Delete the tag (you are a bypass actor), fix the cause, create a new signed tag and push it |
 | `verify` or `build` fails on tests, audit, SBOM or the reproducibility check | The commit is not releasable | Nothing was published. Fix it on `main` through a pull request, then delete and recreate the tag on the new commit, or release the next patch version |
-| `publish` is rejected by RubyGems.org | The trusted publisher does not match the run | Check the owner, repository, workflow file name (`release.yml`) and environment (`release`) on RubyGems.org, then use "Re-run failed jobs" |
+| `publish` is rejected by RubyGems.org | The trusted publisher does not match the run, has expired, or (first release) the workflow did not name the gem owner | Check the owner, repository, workflow file name (`release.yml`) and environment (`release`) on RubyGems.org, that the pending trusted publisher still exists, and that the `RUBYGEMS_OWNER` variable holds the account ID. If the workflow file had to change, nothing is published yet: delete and recreate the tag on the fixed commit. Otherwise use "Re-run failed jobs" |
 | `publish` succeeds but the check "published gem is the attested gem" fails | The gem is public but its bytes differ from the attested build | Do not publish again. Find the cause, and treat the version as suspect: yank it and release the next patch if the difference cannot be explained. The GitHub release is not created |
 | `github-release` fails | The gem is published but the release page is missing | Use "Re-run failed jobs". Otherwise download the `release-dist` artifact and run `gh release create vX.Y.Z <files> --verify-tag --generate-notes` |
 | A released gem is broken | A bad version is public | Yank it with `gem yank fuchikoma -v X.Y.Z` (this needs MFA), release the next patch version, and say so in the changelog |

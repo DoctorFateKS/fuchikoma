@@ -153,8 +153,46 @@ jobs:
       - name: Fix the build timestamp
         run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
 
+      # RubyGems.org lets trusted publishing create a new gem only if the
+      # workflow names the account that will own it, and neither release-gem
+      # nor configure-rubygems-credentials has an input for that yet. While the
+      # repository variable RUBYGEMS_OWNER is set (first release only), the
+      # token exchange is done here. Delete the variable once the gem exists.
+      - name: Get a RubyGems API key to create the gem
+        if: vars.RUBYGEMS_OWNER != ''
+        env:
+          RUBYGEMS_OWNER: ${{ vars.RUBYGEMS_OWNER }}
+        run: |
+          set -euo pipefail
+          case "$RUBYGEMS_OWNER" in
+            ''|*[!0-9]*)
+              echo "::error::RUBYGEMS_OWNER must be the numeric RubyGems.org account ID"
+              exit 1
+              ;;
+          esac
+          jwt="$(curl -sS --fail \
+            -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=rubygems.org" | jq -r '.value')"
+          echo "::add-mask::${jwt}"
+          response="$(curl -sS --fail-with-body -X POST \
+            https://rubygems.org/api/v1/oidc/trusted_publisher/exchange_token \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n --arg jwt "$jwt" --arg owner "$RUBYGEMS_OWNER" '{jwt: $jwt, owner: $owner}')")"
+          if ! key="$(jq -er '.rubygems_api_key' <<< "$response")"; then
+            echo "::error::Unexpected response from RubyGems.org (fields: $(jq -r 'keys | join(", ")' <<< "$response"))"
+            exit 1
+          fi
+          echo "::add-mask::${key}"
+          {
+            echo "RUBYGEMS_API_KEY=${key}"
+            echo "GEM_HOST_API_KEY=${key}"
+            echo "BUNDLE_GEM__PUSH_KEY=${key}"
+          } >> "$GITHUB_ENV"
+
       - name: Publish the gem
         uses: rubygems/release-gem@v1
+        with:
+          setup-trusted-publisher: ${{ vars.RUBYGEMS_OWNER == '' }}
 
       - name: Download the attested gem
         uses: actions/download-artifact@v4
