@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: Report a security vulnerability (private)
-    url: https://github.com/DoctorFateKS/fuchikoma/security/advisories/new
+    url: https://github.com/KevinSaison/fuchikoma/security/advisories/new
     about: Do not open a public issue for a security problem. Follow SECURITY.md and report it privately.
   - name: Ask a question or discuss an idea
-    url: https://github.com/DoctorFateKS/fuchikoma/discussions
+    url: https://github.com/KevinSaison/fuchikoma/discussions
     about: Questions, usage help and early ideas belong in Discussions, not in issues.
   - name: Propose a substantial change (RFC)
-    url: https://github.com/DoctorFateKS/fuchikoma/blob/main/GOVERNANCE.md#the-rfc-process
+    url: https://github.com/KevinSaison/fuchikoma/blob/main/GOVERNANCE.md#the-rfc-process
     about: New public concepts, breaking changes and new dependencies go through a public RFC.

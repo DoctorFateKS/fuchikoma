@@ -27,5 +27,5 @@ First release: the repository skeleton. There is no framework code yet.
 - Issue templates, a pull request template and `CODEOWNERS`.
 - A README with the vision, a status banner and the non-goals.
 
-[Unreleased]: https://github.com/DoctorFateKS/fuchikoma/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/DoctorFateKS/fuchikoma/releases/tag/v0.0.1
+[Unreleased]: https://github.com/KevinSaison/fuchikoma/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/KevinSaison/fuchikoma/releases/tag/v0.0.1

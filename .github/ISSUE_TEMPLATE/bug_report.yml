@@ -9,7 +9,7 @@ body:
         Thank you for taking the time to report a bug.
 
         **Security problems must not be reported here.** Follow
-        [SECURITY.md](https://github.com/DoctorFateKS/fuchikoma/blob/main/SECURITY.md)
+        [SECURITY.md](https://github.com/KevinSaison/fuchikoma/blob/main/SECURITY.md)
         and report them privately.
   - type: checkboxes
     id: preflight

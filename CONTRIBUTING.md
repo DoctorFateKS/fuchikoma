@@ -23,7 +23,7 @@ To report a security problem, **do not open a public issue**: follow
 You need Ruby 3.4 or later.
 
 ```sh
-git clone https://github.com/DoctorFateKS/fuchikoma.git
+git clone https://github.com/KevinSaison/fuchikoma.git
 cd fuchikoma
 bin/setup
 ```

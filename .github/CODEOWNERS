@@ -5,19 +5,19 @@
 # individual handles are used.
 
 # Default owners for everything
-*                                   @DoctorFateKS
+*                                   @KevinSaison
 
 # Governance, legal and security documents: steering group
-/GOVERNANCE.md                      @DoctorFateKS
-/CODE_OF_CONDUCT.md                 @DoctorFateKS
-/SECURITY.md                        @DoctorFateKS
-/LICENSE                            @DoctorFateKS
-/.github/CODEOWNERS                 @DoctorFateKS
-/rfcs/                              @DoctorFateKS
+/GOVERNANCE.md                      @KevinSaison
+/CODE_OF_CONDUCT.md                 @KevinSaison
+/SECURITY.md                        @KevinSaison
+/LICENSE                            @KevinSaison
+/.github/CODEOWNERS                 @KevinSaison
+/rfcs/                              @KevinSaison
 
 # Supply chain and release process: steering group
-/.github/workflows/                 @DoctorFateKS
-/.github/scripts/                   @DoctorFateKS
-/fuchikoma.gemspec                    @DoctorFateKS
-/Gemfile                            @DoctorFateKS
-/DEPENDENCIES.md                    @DoctorFateKS
+/.github/workflows/                 @KevinSaison
+/.github/scripts/                   @KevinSaison
+/fuchikoma.gemspec                    @KevinSaison
+/Gemfile                            @KevinSaison
+/DEPENDENCIES.md                    @KevinSaison

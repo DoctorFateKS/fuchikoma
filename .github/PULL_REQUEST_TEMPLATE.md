@@ -18,10 +18,10 @@
 
 ## Checklist
 
-Please read [CONTRIBUTING.md](https://github.com/DoctorFateKS/fuchikoma/blob/main/CONTRIBUTING.md) first.
+Please read [CONTRIBUTING.md](https://github.com/KevinSaison/fuchikoma/blob/main/CONTRIBUTING.md) first.
 
 - [ ] **Every commit is signed off** (`git commit -s`) to certify the
-      [Developer Certificate of Origin](https://github.com/DoctorFateKS/fuchikoma/blob/main/CONTRIBUTING.md#developer-certificate-of-origin).
+      [Developer Certificate of Origin](https://github.com/KevinSaison/fuchikoma/blob/main/CONTRIBUTING.md#developer-certificate-of-origin).
       The DCO check fails otherwise.
 - [ ] Commit messages follow Conventional Commits: `type(scope): subject`.
 - [ ] The change is one logical change, usually under 400 changed lines.

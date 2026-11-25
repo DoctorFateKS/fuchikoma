@@ -1,6 +1,6 @@
 # Fuchikoma
 
-[![CI](https://github.com/DoctorFateKS/fuchikoma/actions/workflows/ci.yml/badge.svg)](https://github.com/DoctorFateKS/fuchikoma/actions/workflows/ci.yml)
+[![CI](https://github.com/KevinSaison/fuchikoma/actions/workflows/ci.yml/badge.svg)](https://github.com/KevinSaison/fuchikoma/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Ruby 3.4+](https://img.shields.io/badge/ruby-3.4%2B-red.svg)
 
@@ -101,7 +101,7 @@ benchmarks, bug reports and reviews.
 To set up a development environment you need Ruby 3.4 or later:
 
 ```sh
-git clone https://github.com/DoctorFateKS/fuchikoma.git
+git clone https://github.com/KevinSaison/fuchikoma.git
 cd fuchikoma
 bin/setup
 bundle exec rake   # tests, RuboCop and Steep
