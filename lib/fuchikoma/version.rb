@@ -2,5 +2,5 @@
 
 # Fuchikoma is a fiber-native, typed, one-process Ruby web framework.
 module Fuchikoma
-  VERSION = "0.0.1"
+  VERSION = "0.0.2"
 end

@@ -8,6 +8,35 @@ and the project follows [Semantic Versioning](https://semver.org/). Before
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-11-25
+
+Supply chain and release automation. There is still no framework code.
+
+### Added
+
+- `DEPENDENCIES.md`, the policy of fewer than 15 runtime gems, each justified.
+- Dependabot for Bundler and GitHub Actions, and a `bundler-audit` workflow
+  that runs on every pull request, on `main` and every week.
+- A tag-triggered release workflow that publishes to RubyGems.org with trusted
+  publishing. Running it by hand is a dry run that publishes nothing.
+- Release tag checks (`.github/scripts/check-release-tag.sh`): tag name,
+  version, changelog section, signature verified by GitHub and tagged commit
+  on `main`.
+- A reproducible gem build, with build provenance attestations for the gem and
+  its SBOM, and a `SHA256SUMS` file.
+- A CycloneDX 1.6 SBOM of the gem and its runtime dependencies
+  (`.github/scripts/generate-sbom.sh`), attached to every GitHub release.
+- Release notes taken from this changelog, and 0.x releases marked as
+  pre-releases.
+- The release manager rules in `GOVERNANCE.md`: multi-factor authentication
+  and signed tags are required.
+- `RELEASING.md`, the release runbook.
+
+### Changed
+
+- The repository moved to `KevinSaison/fuchikoma`, and its links were updated.
+- The development dependency on minitest moved to 6.1.
+
 ## [0.0.1] - 2026-11-24
 
 First release: the repository skeleton. There is no framework code yet.
@@ -27,5 +56,6 @@ First release: the repository skeleton. There is no framework code yet.
 - Issue templates, a pull request template and `CODEOWNERS`.
 - A README with the vision, a status banner and the non-goals.
 
-[Unreleased]: https://github.com/KevinSaison/fuchikoma/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/KevinSaison/fuchikoma/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/KevinSaison/fuchikoma/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/KevinSaison/fuchikoma/releases/tag/v0.0.1
