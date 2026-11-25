@@ -28,10 +28,12 @@ jobs:
         with:
           persist-credentials: false
 
+      # "4.0" selects the latest 4.0.x patch. A pinned patch such as the one
+      # in .ruby-version (4.0.0) is not built for newer runner images.
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ".ruby-version"
+          ruby-version: "4.0"
           bundler-cache: true
 
       - name: Install bundler-audit
