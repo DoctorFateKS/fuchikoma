@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
                      "every request, job and socket runs in a fiber, contracts are " \
                      "declared once as schemas, data access is scoped by default, " \
                      "and AI agents are a framework concept."
-  spec.homepage = "https://github.com/DoctorFateKS/fuchikoma"
+  spec.homepage = "https://github.com/KevinSaison/fuchikoma"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.4"
 

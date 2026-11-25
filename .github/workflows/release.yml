@@ -1,0 +1,173 @@
+name: Release
+
+# A release starts when a release manager pushes a signed tag named vX.Y.Z.
+#
+# - Tag push: verify the tag, build and attest the gem, publish it to
+#   RubyGems.org with trusted publishing, then create the GitHub release.
+# - Manual run (workflow_dispatch): a dry run. It verifies, builds and attests
+#   the gem and uploads it as a workflow artifact, but publishes nothing.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository with its history
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      - name: Check the release tag
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/check-release-tag.sh "$GITHUB_REF_NAME"
+
+      - name: Check the version and the changelog (dry run)
+        if: github.ref_type != 'tag'
+        run: .github/scripts/check-release-tag.sh --dry-run
+
+      - name: RuboCop
+        run: bundle exec rubocop
+
+      - name: Steep
+        run: bundle exec steep check
+
+      - name: Tests
+        run: bundle exec rake test
+
+      - name: Install bundler-audit
+        run: gem install bundler-audit --version "~> 0.9"
+
+      - name: Check gems for known vulnerabilities
+        run: bundle-audit check --update
+
+  build:
+    name: Build and attest the gem
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      # A fixed timestamp makes the gem reproducible: the same commit always
+      # gives the same bytes, so the published gem can be compared with the
+      # attested one.
+      - name: Fix the build timestamp
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+
+      - name: Build the gem and check that the build is reproducible
+        run: |
+          version="$(ruby -Ilib -e 'require "fuchikoma/version"; print Fuchikoma::VERSION')"
+          mkdir -p dist
+          gem build fuchikoma.gemspec --output "dist/fuchikoma-${version}.gem"
+          gem build fuchikoma.gemspec --output "${RUNNER_TEMP}/second-build.gem"
+          cmp "dist/fuchikoma-${version}.gem" "${RUNNER_TEMP}/second-build.gem"
+          (cd dist && sha256sum "fuchikoma-${version}.gem" | tee SHA256SUMS)
+
+      - name: Attest the gem
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: dist/*.gem
+
+      - name: Upload the release files
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dist
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    name: Publish to RubyGems.org
+    needs: build
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: release
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      - name: Fix the build timestamp
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+
+      - name: Publish the gem
+        uses: rubygems/release-gem@v1
+
+      - name: Download the attested gem
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dist
+          path: ${{ runner.temp }}/dist
+
+      - name: Check that the published gem is the attested gem
+        run: |
+          published="$(ls pkg/fuchikoma-*.gem)"
+          cmp "$published" "${RUNNER_TEMP}/dist/$(basename "$published")"
+
+  github-release:
+    name: Create the GitHub release
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download the release files
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dist
+          path: dist
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes
