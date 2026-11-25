@@ -2,10 +2,12 @@ name: Release
 
 # A release starts when a release manager pushes a signed tag named vX.Y.Z.
 #
-# - Tag push: verify the tag, build and attest the gem, publish it to
-#   RubyGems.org with trusted publishing, then create the GitHub release.
+# - Tag push: verify the tag, build the gem and its SBOM, attest them, publish
+#   the gem to RubyGems.org with trusted publishing, then create the GitHub
+#   release with the gem, the SBOM and the checksums attached.
 # - Manual run (workflow_dispatch): a dry run. It verifies, builds and attests
-#   the gem and uploads it as a workflow artifact, but publishes nothing.
+#   the gem and its SBOM and uploads them as a workflow artifact, but publishes
+#   nothing.
 on:
   push:
     tags: ["v*"]
@@ -62,7 +64,7 @@ jobs:
         run: bundle-audit check --update
 
   build:
-    name: Build and attest the gem
+    name: Build and attest the gem and its SBOM
     needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -95,12 +97,24 @@ jobs:
           gem build fuchikoma.gemspec --output "dist/fuchikoma-${version}.gem"
           gem build fuchikoma.gemspec --output "${RUNNER_TEMP}/second-build.gem"
           cmp "dist/fuchikoma-${version}.gem" "${RUNNER_TEMP}/second-build.gem"
-          (cd dist && sha256sum "fuchikoma-${version}.gem" | tee SHA256SUMS)
 
-      - name: Attest the gem
+      - name: Generate the CycloneDX SBOM
+        run: |
+          version="$(ruby -Ilib -e 'require "fuchikoma/version"; print Fuchikoma::VERSION')"
+          .github/scripts/generate-sbom.sh \
+            "dist/fuchikoma-${version}.cdx.json" \
+            "dist/fuchikoma-${version}.gem"
+
+      - name: Write the checksums
+        working-directory: dist
+        run: sha256sum fuchikoma-*.gem fuchikoma-*.cdx.json | tee SHA256SUMS
+
+      - name: Attest the gem and the SBOM
         uses: actions/attest-build-provenance@v4
         with:
-          subject-path: dist/*.gem
+          subject-path: |
+            dist/*.gem
+            dist/*.cdx.json
 
       - name: Upload the release files
         uses: actions/upload-artifact@v4
@@ -162,6 +176,8 @@ jobs:
           name: release-dist
           path: dist
 
+      # dist/ holds the gem, its CycloneDX SBOM and the checksums: all three
+      # become release assets.
       - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
