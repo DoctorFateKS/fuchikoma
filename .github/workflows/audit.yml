@@ -1,0 +1,41 @@
+name: Audit
+
+# Scans the resolved gems against the Ruby advisory database. It also runs on
+# a weekly schedule, because new advisories appear even when nobody pushes.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bundler-audit:
+    name: bundler-audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ".ruby-version"
+          bundler-cache: true
+
+      - name: Install bundler-audit
+        run: gem install bundler-audit --version "~> 0.9"
+
+      - name: Check gems for known vulnerabilities
+        run: bundle-audit check --update

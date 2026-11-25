@@ -1,0 +1,38 @@
+version: 2
+
+# Dependabot keeps the supply chain current. Commit messages follow
+# Conventional Commits (type only: "deps" is not an allowed scope), and every
+# update arrives as a pull request that must pass CI and the DCO check
+# (Dependabot commits are exempt from the DCO sign-off).
+updates:
+  - package-ecosystem: bundler
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
+    groups:
+      development-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
