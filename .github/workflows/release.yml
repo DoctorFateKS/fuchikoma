@@ -48,6 +48,11 @@ jobs:
         if: github.ref_type != 'tag'
         run: .github/scripts/check-release-tag.sh --dry-run
 
+      - name: Check that the release notes can be extracted
+        run: |
+          version="$(ruby -Ilib -e 'require "fuchikoma/version"; print Fuchikoma::VERSION')"
+          .github/scripts/release-notes.sh "v${version}" > /dev/null
+
       - name: RuboCop
         run: bundle exec rubocop
 
@@ -170,6 +175,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
       - name: Download the release files
         uses: actions/download-artifact@v4
         with:
@@ -177,13 +187,20 @@ jobs:
           path: dist
 
       # dist/ holds the gem, its CycloneDX SBOM and the checksums: all three
-      # become release assets.
+      # become release assets. The notes are the changelog section of the
+      # version, and every 0.x release is marked as a pre-release.
       - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          .github/scripts/release-notes.sh "$GITHUB_REF_NAME" > "${RUNNER_TEMP}/release-notes.md"
+          flags=()
+          case "$GITHUB_REF_NAME" in
+            v0.*) flags+=(--prerelease) ;;
+          esac
           gh release create "$GITHUB_REF_NAME" dist/* \
             --repo "$GITHUB_REPOSITORY" \
             --verify-tag \
             --title "$GITHUB_REF_NAME" \
-            --generate-notes
+            --notes-file "${RUNNER_TEMP}/release-notes.md" \
+            "${flags[@]}"
