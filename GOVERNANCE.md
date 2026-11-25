@@ -38,9 +38,9 @@ releases and do not sit on the steering group by virtue of that role alone.
 ### Maintainer
 
 A committer who is also responsible for the direction and health of the
-project. Maintainers can publish releases, vote on RFCs, and are eligible for
-the steering group. Release managers are maintainers who have enabled
-multi-factor authentication and sign their tags.
+project. Maintainers vote on RFCs and are eligible for the steering group.
+A maintainer can also become a release manager, the only role that may publish
+releases (see [Release managers](#release-managers)).
 
 ## Maintainer ladder
 
@@ -74,6 +74,55 @@ cases follow the Code of Conduct enforcement process instead.
 Write access, release rights and administrative access to the repository, the
 package registry and the infrastructure are reviewed **twice a year**. Access
 that is no longer needed is removed, and the result of each review is recorded.
+The review also checks that every release manager still meets the
+[requirements](#requirements-for-every-release-manager) below.
+
+## Release managers
+
+A release manager is a maintainer who may publish a release. Pushing a release
+tag and publishing to the package registry are limited to release managers, so
+that a stolen account or a mistaken push cannot ship code to every user.
+
+### Requirements for every release manager
+
+Every release manager must:
+
+1. **Use multi-factor authentication** on their GitHub account and on their
+   RubyGems.org account. A passkey or a hardware security key is preferred. A
+   code sent by SMS is not accepted.
+2. **Sign every release tag.** Tags are created with `git tag -s`, using an SSH
+   or GPG key that is registered as a signing key on the release manager's
+   GitHub account, so that GitHub shows the tag as verified.
+3. **Keep the keys safe.** Signing keys are protected by a passphrase or held
+   on a hardware device, and are never shared.
+4. **Report a loss at once.** A lost device, a lost key or a suspected
+   compromise is reported to the other maintainers without delay. The key is
+   revoked and replaced.
+
+Releases are published by the release workflow through RubyGems trusted
+publishing, so no long-lived API key is stored in the repository or on a
+personal machine. The gemspec also sets `rubygems_mfa_required`, so that any
+manual operation on the gem requires MFA.
+
+### How the requirements are enforced
+
+- **Tags.** Creating, moving or deleting a `v*` tag is restricted to release
+  managers by a repository rule. The release workflow publishes only a tag that
+  GitHub reports as verified, and refuses an unsigned one.
+- **Accounts.** The owners of the gem on RubyGems.org are the release managers
+  and nobody else, and each of them has MFA enabled.
+- **Reviews.** The twice-yearly access review checks both points.
+
+### Appointing and suspending release managers
+
+The steering group appoints release managers among the maintainers and lists
+them in `MAINTAINERS.md`, published when the project passes gate A. Until then,
+the founding maintainer is the only release manager.
+
+Release rights are suspended without delay when a requirement stops being met,
+for example when MFA is disabled or a tag is pushed unsigned, and are restored
+as soon as it is met again. A suspension is not a removal: removing a
+maintainer follows the [removal rules](#removal).
 
 ## Steering group
 
@@ -176,8 +225,9 @@ address is monitored by at least two maintainers.
 - The last minor release of each major version receives fixes for 18 months,
   and security fixes cover the two most recent majors.
 - Releases are published to RubyGems.org with trusted publishing and
-  multi-factor authentication. Every release is tagged with a signed tag, and
-  an SBOM is attached.
+  multi-factor authentication, by a release manager who meets the
+  [requirements](#requirements-for-every-release-manager). Every release is
+  tagged with a signed tag, and an SBOM is attached.
 - Each phase of the roadmap ends with a **gate** that must be passed before the
   next phase starts. If a gate slips by more than one quarter, the steering
   group cuts scope rather than lowering the gate.
