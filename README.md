@@ -8,7 +8,7 @@
 boundaries, secure-by-default data access and first-class agent support.**
 
 > [!WARNING]
-> **Status: pre-alpha, version 0.0.1. There is no framework code yet.**
+> **Status: pre-alpha, version 0.0.2. There is no framework code yet.**
 > The repository currently holds an empty gem, the project's governance and
 > its continuous integration. Nothing here is usable for an application, and
 > nothing is stable. The name "Fuchikoma" is a working name and may change
