@@ -1,4 +1,4 @@
-# Fuchikoma
+<img width="2172" height="724" alt="Logo Fuchikoma avec araignée robotique" src="https://github.com/user-attachments/assets/159264b1-39ca-4b91-b998-36ab3db27437" />
 
 [![CI](https://github.com/KevinSaison/fuchikoma/actions/workflows/ci.yml/badge.svg)](https://github.com/KevinSaison/fuchikoma/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
